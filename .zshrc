@@ -27,6 +27,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # path
 export PATH=${HOME}/usr/bin:$PATH
+export PATH=${HOME}/Library/Python/3.7/bin:$PATH
 
 # aliase
 alias ls='ls -v -F -G'
@@ -53,3 +54,7 @@ zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
+
+# zsh_plugin
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
