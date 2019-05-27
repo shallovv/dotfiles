@@ -14,7 +14,7 @@ set fileencoding=utf-8
 set fileencodings=utf-8,euc-jp,sjis
 set fileformats=unix,dos,mac
 set ambiwidth=double
-set clipboard=unnamedplus
+set clipboard+=unnamed
 set number
 set title
 set hidden
