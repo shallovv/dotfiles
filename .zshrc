@@ -36,6 +36,8 @@ alias la='ls -A'
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
+alias code-stable='/usr/local/bin/code'
+alias code='/usr/local/bin/code-insiders'
 
 # prompt
 PROMPT="%{${fg[yellow]}%}[%n@%m]%{${reset_color}%}
@@ -58,3 +60,4 @@ RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 # zsh_plugin
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fpath=(/usr/local/share/zsh-completions $fpath)
