@@ -21,6 +21,11 @@ init : ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.config/nvim/init.vim ${HOME}/.config/nvim/init.vim
 	ln -vsf ${PWD}/.gitignore_global ${HOME}/.gitignore_global
 
+dropbox-init : ## Initial deploy dotfiles in dropbox
+	ln -vsf ${HOME}/Dropbox/.zsh_history ${HOME}/.zsh_history
+	ln -vsf ${HOME}/Dropbox/.ssh/config ${HOME}/.ssh/config
+	ln -vsf ${HOME}/Dropbox/.netrc ${HOME}/.netrc
+
 update : ## Update packages
 	brew update
 	brew upgrade
