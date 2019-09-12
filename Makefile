@@ -19,6 +19,7 @@ init : ## Initial deploy dotfiles
 	mkdir -p ${HOME}/.config/nvim
 	ln -vsf ${PWD}/.config/nvim/init.vim ${HOME}/.config/nvim/init.vim
 	ln -vsf ${PWD}/.gitignore_global ${HOME}/.gitignore_global
+	ln -vsf ${PWD}/.tmux.conf ${HOME}/.tmux.conf
 
 dropbox-init : ## Initial deploy dotfiles in dropbox
 	mkdir -p ${PWD}/.ssh

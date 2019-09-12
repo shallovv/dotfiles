@@ -36,26 +36,36 @@ alias la='ls -A'
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
-alias code-stable='/usr/local/bin/code'
-alias code='/usr/local/bin/code-insiders'
 
-# prompt
-PROMPT="%{${fg[yellow]}%}[%n@%m]%{${reset_color}%}
-%(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
-PROMPT2='[%n]> '
-SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
+## prompt
+#PROMPT="%{${fg[yellow]}%}[%n@%m]%{${reset_color}%}
+#%(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
+#PROMPT2='[%n]> '
+#SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
+#
+## vcs_info
+#RPROMPT="%{${fg[blue]}%}[%~]%{${reset_color}%}"
+#autoload -Uz vcs_info
+#setopt prompt_subst
+#zstyle ':vcs_info:git:*' check-for-changes true
+#zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+#zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+#zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
+#zstyle ':vcs_info:*' actionformats '[%b|%a]'
+#precmd () { vcs_info }
+#RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
-# vcs_info
-RPROMPT="%{${fg[blue]}%}[%~]%{${reset_color}%}"
-autoload -Uz vcs_info
-setopt prompt_subst
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
-precmd () { vcs_info }
-RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
+# prompt (https://github.com/robbyrussell/oh-my-zsh/blob/master/themes/robbyrussell.zsh-theme)
+local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
+PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
+
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+
+# git (https://github.com/robbyrussell/oh-my-zsh/blob/master/lib/git.zsh)
+source /Users/shallow/src/github.com/robbyussell/oh-my-zsh/lib/git.zsh
 
 # zsh_plugin
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
