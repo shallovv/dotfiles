@@ -22,10 +22,10 @@ init : ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.tmux.conf ${HOME}/.tmux.conf
 
 dropbox-init : ## Initial deploy dotfiles in dropbox
-	mkdir -p ${PWD}/.ssh
+	mkdir -p ${HOME}/.ssh
 	ln -vsf ${HOME}/Dropbox/.zsh_history ${HOME}/.zsh_history
 	ln -vsf ${HOME}/Dropbox/.ssh/config ${HOME}/.ssh/config
-	ln -vsf ${HOME}/Dropbox/.netrc ${HOME}/.netrc
+	# ln -vsf ${HOME}/Dropbox/.netrc ${HOME}/.netrc
 
 update : ## Update packages
 	brew update
