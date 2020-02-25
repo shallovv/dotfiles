@@ -99,6 +99,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Path
+export PATH=$HOME/Library/Python/3.7/bin:$PATH
+eval "$(rbenv init -)"
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
 
 # History
 HISTFILE=${HOME}/.zsh_history
@@ -119,4 +123,15 @@ alias la='ls -A'
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
-alias emacs='emacs -nw'
+alias gls='gls -v -F --color=auto'
+alias gll='gls -al'
+alias gla='gls -A'
+
+# fzf
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+
+# Functions
+function cdr() {
+  repo_path=$(ghq list --full-path |fzf)
+  cd $repo_path
+}

@@ -29,3 +29,12 @@ set history=2000
 set sh=zsh
 set laststatus=2
 set wildmenu
+let g:python_host_prog = '/usr/local/bin/python2'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+" -- keymap --
+nnoremap j gj
+nnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
+nnoremap <Esc><Esc> :noh<CR>
