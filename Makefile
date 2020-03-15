@@ -1,9 +1,9 @@
 export PATH := /bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin
 
 install : ## Install packages
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	brew bundle install --file=${PWD}/.brewfile
-	
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+	brew bundle install --file=${PWD}/macos/.brewfile
+
 texliveinstall : ## TeX Live
 	curl -O http://ftp.jaist.ac.jp/pub/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz
 	tar xvf install-tl-unx.tar.gz
@@ -36,16 +36,14 @@ texliveupdate : ## Update TeX Live
 	sudo tlmgr update --self --all
 
 backup : ## Backup Homebrew packages
-	if [ -e .brewfile ]; then\
-		mv ${PWD}/.brewfile ${PWD}/.brewfile.org;\
-	fi
-	brew bundle dump --file=${PWD}/.brewfile
+	mkdir -p ${PWD}/macos
+	brew bundle dump -f --file=${PWD}/macos/.brewfile
 
-allinstall : install texlive-install
+allinstall : install texliveinstall
 
-allinit : init dropbox-init
+allinit : init dropboxinit
 
-allupdate : update texlive-update
+allupdate : update texliveupdate
 
 allbackup : backup
 
