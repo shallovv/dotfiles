@@ -100,9 +100,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Path
 export PATH=$HOME/Library/Python/3.7/bin:$PATH
-eval "$(rbenv init -)"
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$PATH
 
 # History
 HISTFILE=${HOME}/.zsh_history
