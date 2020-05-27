@@ -130,5 +130,7 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 # Functions
 function cdr() {
   repo_path=$(ghq list --full-path |fzf)
-  cd $repo_path
+  if [ -n "$repo_path" ]; then
+    cd $repo_path
+  fi
 }
