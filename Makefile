@@ -20,6 +20,7 @@ init : ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.config/nvim/init.vim ${HOME}/.config/nvim/init.vim
 	ln -vsf ${PWD}/.gitignore_global ${HOME}/.gitignore_global
 	ln -vsf ${PWD}/.tmux.conf ${HOME}/.tmux.conf
+	ln -vsf ${PWD}/.latexmkrc ${HOME}/.latexmkrc
 
 dropboxinit : ## Initial deploy dotfiles in dropbox
 	mkdir -p ${HOME}/.ssh
