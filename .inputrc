@@ -1,0 +1,2 @@
+# bash ignore capital and lower
+set completion-ignore-case on
