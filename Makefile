@@ -2,7 +2,7 @@ export PATH := /bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin
 
 install : ## Install packages
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-	brew bundle install --file=${PWD}/macos/.brewfile
+	brew install bash zsh vim neovim curl wget git tmux htop ghq fzf
 
 texliveinstall : ## TeX Live
 	curl -O http://ftp.jaist.ac.jp/pub/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz
@@ -14,6 +14,9 @@ texliveinstall : ## TeX Live
 	rm -rf install-tl*
 
 init : ## Initial deploy dotfiles
+	ln -vsf ${PWD}/.bashrc ${HOME}/.bashrc
+	ln -vsf ${PWD}/.bash_profile ${HOME}/.bash_profile
+	ln -vsf ${PWD}/.inputrc ${HOME}/.inputrc
 	ln -vsf ${PWD}/.zshrc ${HOME}/.zshrc
 	ln -vsf ${PWD}/.vimrc ${HOME}/.vimrc
 	mkdir -p ${HOME}/.config/nvim
@@ -21,12 +24,6 @@ init : ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.gitignore_global ${HOME}/.gitignore_global
 	ln -vsf ${PWD}/.tmux.conf ${HOME}/.tmux.conf
 	ln -vsf ${PWD}/.latexmkrc ${HOME}/.latexmkrc
-
-dropboxinit : ## Initial deploy dotfiles in dropbox
-	mkdir -p ${HOME}/.ssh
-	ln -vsf ${HOME}/Dropbox/.zsh_history ${HOME}/.zsh_history
-	ln -vsf ${HOME}/Dropbox/.ssh/config ${HOME}/.ssh/config
-	# ln -vsf ${HOME}/Dropbox/.netrc ${HOME}/.netrc
 
 update : ## Update packages
 	brew update
@@ -42,7 +39,7 @@ backup : ## Backup Homebrew packages
 
 allinstall : install texliveinstall
 
-allinit : init dropboxinit
+allinit : init 
 
 allupdate : update texliveupdate
 

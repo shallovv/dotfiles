@@ -2,17 +2,17 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH="/Users/shallovv/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="2-line-robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -33,7 +33,7 @@ ZSH_THEME="robbyrussell"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -64,8 +64,8 @@ ZSH_THEME="robbyrussell"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
@@ -78,6 +78,7 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
+export LANG=ja_JP.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -98,39 +99,40 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Path
-export PATH=$HOME/Library/Python/3.7/bin:$PATH
-
-# History
-HISTFILE=${HOME}/.zsh_history
+# history
+HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 LISTMAX=10000
 
-# Alias
-unalias l
-unalias ls
-unalias ll
-unalias la
-unalias lsa
-
-alias ls='ls -v -F -G'
-alias ll='ls -al'
-alias la='ls -A'
+# alias 
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
-alias gls='gls -v -F --color=auto'
-alias gll='gls -al'
-alias gla='gls -A'
+alias vi='nvim'
+alias vim='nvim'
 
-# fzf
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+setopt completealiases
 
-# Functions
-function cdr() {
-  repo_path=$(ghq list --full-path |fzf)
-  if [ -n "$repo_path" ]; then
-    cd $repo_path
+# function
+function __cd_ghq_list() {
+  local project_name=$(ghq list | sort | fzf)
+  if [ -n "$project_name" ]; then
+    local project_full_path=$(ghq root)/$project_name
+    BUFFER="cd $project_full_path"
+    zle accept-line
   fi
+  zle reset-prompt
 }
+zle -N __cd_ghq_list
+bindkey '^]' __cd_ghq_list
+
+# completions
+if [ -e /usr/local/share/zsh-completions ]; then
+  fpath=(/usr/local/share/zsh-completions $fpath)
+fi
+
+autoload -Uz compinit && compinit -i
+
+# zsh-syntax-highlighting
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
