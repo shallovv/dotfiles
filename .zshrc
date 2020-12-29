@@ -136,3 +136,11 @@ autoload -Uz compinit && compinit -i
 
 # zsh-syntax-highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# pyenv
+eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+# rbenv
+eval "$(rbenv init -)"

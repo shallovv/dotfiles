@@ -17,7 +17,6 @@ init : ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.config/nvim/init.vim ${HOME}/.config/nvim/init.vim
 	ln -vsf ${PWD}/.gitignore_global ${HOME}/.gitignore_global
 	ln -vsf ${PWD}/.tmux.conf ${HOME}/.tmux.conf
-	ln -vsf ${PWD}/.latexmkrc ${HOME}/.latexmkrc
 
 zsh : ## zsh settings
 	brew install zsh zsh-completions zsh-syntax-highlighting
@@ -31,6 +30,27 @@ git : ## git settings
 	git config --global core.excludesFile ${HOME}/.gitignore_global
 	brew tap microsoft/git
 	brew install --cask git-credential-manager-core
+
+neovim : ## neovim settings
+	brew install neovim 
+	mkdir -p ${HOME}/.config/nvim
+	ln -vsf ${PWD}/.config/init.vim ${HOME}/.config/init.vim
+	curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ${PWD}/.config/nvim/installer.sh
+	sh ${PWD}/.config/nvim/installer.sh ~/.cache/dein
+
+neovim-dependencies : ## dependencies settings for neovim
+	brew install pyenv pyenv-virtualenv rbenv node yarn
+	pyenv install 2.7.18
+	pyenv virtualenv 2.7.18 nvim-python2
+	${HOME}/.pyenv/versions/nvim-python2/bin/pip install --upgrade pip
+	${HOME}/.pyenv/versions/nvim-python2/bin/pip install pynvim neovim
+	pyenv install 3.9.0 
+	pyenv virtualenv 3.9.0 nvim-python3
+	${HOME}/.pyenv/versions/nvim-python3/bin/pip install --upgrade pip
+	${HOME}/.pyenv/versions/nvim-python3/bin/pip install pynvim neovim
+	rbenv install 3.0.0
+	${HOME}/.rbenv/versions/3.0.0/bin/gem install neovim
+	yarn add neovim
 
 docker : ## docker settings
 	brew install docker
@@ -63,11 +83,11 @@ backup : ## Backup list of packages installed by homebrew
 	mkdir -p ${PWD}/macos
 	brew bundle dump -f --file=${PWD}/macos/.brewfile
 
-allinstall : homebrew install zsh git texlive
+allinstall : homebrew install zsh git neovim
 
 allinit : init 
 
-allupdate : update texliveupdate
+allupdate : update 
 
 allbackup : backup
 
