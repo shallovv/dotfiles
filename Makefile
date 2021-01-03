@@ -28,8 +28,6 @@ git : ## git settings
 	brew install git
 	ln -vsf ${PWD}/.gitignore_global ${HOME}/.gitignore_global
 	git config --global core.excludesFile ${HOME}/.gitignore_global
-	brew tap microsoft/git
-	brew install --cask git-credential-manager-core
 
 neovim : ## neovim settings
 	brew install neovim 
