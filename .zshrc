@@ -1,4 +1,5 @@
-autoload -U compinit promptinit
+plugins=(... zsh-completions)
+autoload -Uz compinit promptinit
 compinit
 promptinit
 
@@ -6,6 +7,14 @@ export LANG=ja_JP.UTF-8
 
 autoload -Uz colors
 colors
+
+autoload -U up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^P" up-line-or-beginning-search
+bindkey "^N" down-line-or-beginning-search
+
+bindkey -e
 
 # History
 HISTFILE=~/.zsh_history
@@ -17,7 +26,7 @@ LISTMAX=10000
 setopt hist_ignore_dups
 setopt nonomatch
 setopt correct
-#setopt re_match_pcre
+setopt re_match_pcre
 setopt prompt_subst
 
 # disable
@@ -25,16 +34,21 @@ disable r
 
 # zstyle
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' menu select
 
-# Alias
+# alias
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
-alias ls='ls -v -F -G'
+if [[ "$(uname)" == 'Linux' ]]; then
+  alias ls='ls -v -F --color=auto'
+else
+  alias ls='ls -v -F -G'
+fi
 alias ll='ls -alh'
 alias la='ls -A'
 
-# Function
+# function
 function __cd_ghq_list() {
   local project_name=$(ghq list | sort | fzf)
   if [ -n "$project_name" ]; then
@@ -47,13 +61,12 @@ function __cd_ghq_list() {
 zle -N __cd_ghq_list
 bindkey '^]' __cd_ghq_list
 
-# Completions
-if [ -e /usr/local/share/zsh-completions ]; then
-	fpath=(/usr/local/share/zsh-completions $fpath)
-fi
-
 # zsh-syntax-highlighting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ "$(uname)" == 'Linux' ]]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+else
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
