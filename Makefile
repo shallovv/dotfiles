@@ -15,7 +15,8 @@ init : ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.vimrc ${HOME}/.vimrc
 	mkdir -p ${HOME}/.config/nvim
 	ln -vsf ${PWD}/.config/nvim/init.vim ${HOME}/.config/nvim/init.vim
-	ln -vsf ${PWD}/.gitignore_global ${HOME}/.gitignore_global
+	mkdir -p ${HOME}/.config/git
+	ln -vsf ${PWD}/.config/git/ignore ${HOME}/.config/git/ignore
 	ln -vsf ${PWD}/.tmux.conf ${HOME}/.tmux.conf
 
 zsh : ## zsh settings
@@ -26,8 +27,8 @@ zsh : ## zsh settings
 
 git : ## git settings
 	brew install git
-	ln -vsf ${PWD}/.gitignore_global ${HOME}/.gitignore_global
-	git config --global core.excludesFile ${HOME}/.gitignore_global
+	mkdir -p ${HOME}/.config/git
+	ln -vsf ${PWD}/.config/git/ignore ${HOME}/.config/git/ignore
 
 neovim : ## neovim settings
 	brew install neovim 
@@ -74,12 +75,17 @@ update : ## Update packages installed by homebrew
 	brew upgrade
 	brew upgrade --cask
 
-texliveupdate : ## Update TeX Live
+update_texlive : ## Update TeX Live
 	sudo tlmgr update --self --all
 
-backup : ## Backup list of packages installed by homebrew
+backup_for_mac : ## Backup list of packages installed by homebrew
 	mkdir -p ${PWD}/macos
 	brew bundle dump -f --file=${PWD}/macos/.brewfile
+
+backup_for_arch : ## Backup list of packages installed by pacman and yay
+	mkdir -p ${PWD}/arch
+	pacman -Qnq > ${PWD}/arch/pacmanlist
+	pacman -Qqem > ${PWD}/arch/aurlist
 
 allinstall : homebrew install zsh git neovim
 

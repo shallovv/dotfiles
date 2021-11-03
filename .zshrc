@@ -37,14 +37,17 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' menu select
 
 # alias
+if [ "$(uname)" == 'Darwin' ]; then
+  alias ls='ls -v -F -G'
+else
+  alias ls='ls -v -F --color=auto'
+  alias open='xdg-open'
+  alias pbcopy='xclip -selection c'
+  alias pbpaste='xclip -selection c -o'
+fi
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
-if [[ "$(uname)" == 'Linux' ]]; then
-  alias ls='ls -v -F --color=auto'
-else
-  alias ls='ls -v -F -G'
-fi
 alias ll='ls -alh'
 alias la='ls -A'
 
@@ -62,10 +65,10 @@ zle -N __cd_ghq_list
 bindkey '^]' __cd_ghq_list
 
 # zsh-syntax-highlighting
-if [[ "$(uname)" == 'Linux' ]]; then
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-else
+if [ "$(uname)" == 'Darwin' ]; then
   source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+else
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 ### Added by Zinit's installer
