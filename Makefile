@@ -8,9 +8,9 @@ install : ## Install packages using homebrew
 		bash-completions zsh-completions zsh-syntax-highlighting
 
 init : ## Initial deploy dotfiles
-	ln -vsf ${PWD}/.bashrc ${HOME}/.bashrc
-	ln -vsf ${PWD}/.bash_profile ${HOME}/.bash_profile
-	ln -vsf ${PWD}/.inputrc ${HOME}/.inputrc
+	#ln -vsf ${PWD}/.bashrc ${HOME}/.bashrc
+	#ln -vsf ${PWD}/.bash_profile ${HOME}/.bash_profile
+	#ln -vsf ${PWD}/.inputrc ${HOME}/.inputrc
 	ln -vsf ${PWD}/.zshrc ${HOME}/.zshrc
 	ln -vsf ${PWD}/.vimrc ${HOME}/.vimrc
 	mkdir -p ${HOME}/.config/nvim
@@ -21,8 +21,7 @@ init : ## Initial deploy dotfiles
 
 zsh : ## zsh settings
 	brew install zsh zsh-completions zsh-syntax-highlighting
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-	curl -o ${HOME}/.oh-my-zsh/custom/themes/2-line-robbyrussell.zsh-theme https://gist.githubusercontent.com/shallovv/72d591186f87cc8e44e14449db85e831/raw/856ac8eb61601dfdb73d48a714a0d8066f65ea07/2-line-robbyrussell.zsh-theme
+	curl -L git.io/antigen > ${HOME}/antigen.zsh
 	ln -vsf ${PWD}/.zshrc ${HOME}/.zshrc
 
 git : ## git settings
