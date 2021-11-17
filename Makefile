@@ -33,8 +33,9 @@ neovim : ## neovim settings
 	brew install neovim 
 	mkdir -p ${HOME}/.config/nvim
 	ln -vsf ${PWD}/.config/init.vim ${HOME}/.config/init.vim
-	curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ${PWD}/.config/nvim/installer.sh
-	sh ${PWD}/.config/nvim/installer.sh ~/.cache/dein
+	curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+	sh ./installer.sh ~/.cache/dein
+	rm -f installer.sh
 
 neovim-dependencies : ## dependencies settings for neovim
 	brew install pyenv pyenv-virtualenv rbenv node yarn
@@ -65,8 +66,7 @@ texlive : ## TeX Live settings
 	sudo ./install-tl*/install-tl -no-gui -repository http://ftp.jaist.ac.jp/pub/CTAN/systems/texlive/tlnet/
 	sudo mv /usr/local/share/info/dir /usr/local/share/info/dir.org
 	sudo /usr/local/texlive/????/bin/*/tlmgr path add
-	rm -rf install-tl-unx.tar.gz
-	rm -rf install-tl*
+	rm -rf install-tl-unx.tar.gz install-tl*
 	ln -vsf ${PWD}/.latexmkrc ${HOME}/.latexmkrc
 
 update : ## Update packages installed by homebrew

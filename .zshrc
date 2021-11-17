@@ -15,10 +15,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
 
 # Load the theme.
-# https://github.com/zsh-users/antigen/issue/675
-#antigen theme robbyrussell
-THEME=nebirhos
-antigen list | grep $THEME; if [ $? -ne 0 ]; then antigen theme $THEME; fi
+antigen theme nebirhos
 
 # Tell Antigen that you're done.
 antigen apply
@@ -29,8 +26,9 @@ promptinit
 
 export LANG=ja_JP.UTF-8
 
-export PATH=$HOME/go/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export GOPATH=$HOME/go
+export PATH="$PATH:$GOPATH/bin"
 
 autoload -Uz colors
 colors
@@ -50,7 +48,12 @@ SAVEHIST=1000000
 LISTMAX=10000
 
 # setopt
+setopt hist_expire_dups_first
 setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt share_history
 setopt nonomatch
 setopt correct
 setopt re_match_pcre
