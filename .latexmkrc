@@ -10,6 +10,6 @@ $pdf_mode=3;
 $pvc_view_file_via_temporary=0;
 if ($^O eq 'darwin') {
   $pdf_previewer='open';
-} else
+} else {
   $pdf_previewer='xdg-open';
 }
