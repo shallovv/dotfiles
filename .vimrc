@@ -38,3 +38,7 @@ nnoremap k gk
 nnoremap <Down> gj
 nnoremap <Up> gk
 nnoremap <Esc><Esc> :noh<CR>
+
+if has('mac')
+  set clipboard& clipboard^=unnamed
+endif
