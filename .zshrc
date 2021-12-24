@@ -29,6 +29,7 @@ export LANG=ja_JP.UTF-8
 export PATH=$HOME/.local/bin:$PATH
 export GOPATH=$HOME/go
 export PATH="$PATH:$GOPATH/bin"
+export PYTHONUSERBASE=$HOME/.local
 
 autoload -Uz colors
 colors
@@ -75,6 +76,9 @@ unalias lsa
 
 if [ "$(uname)" = 'Darwin' ]; then
   alias ls='ls -v -F -G'
+  alias gls='gls -v -F --color=auto'
+  alias gll='gls -alh'
+  alias gla='gls -A'
 else
   alias ls='ls -v -F --color=auto'
   alias open='xdg-open'
