@@ -81,7 +81,7 @@ if [ "$(uname)" = 'Darwin' ]; then
   alias gla='gls -A'
 else
   alias ls='ls -v -F --color=auto'
-  alias open='xdg-open'
+  alias open='xdg-open-multiple-arguments'
   alias pbcopy='xclip -selection c'
   alias pbpaste='xclip -selection c -o'
 fi
